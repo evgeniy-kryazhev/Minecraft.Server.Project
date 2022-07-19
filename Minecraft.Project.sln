@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft.Application", "Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft.Domain.Shared", "Minecraft.Domain.Shared\Minecraft.Domain.Shared.csproj", "{5FD47103-6703-4F96-8F99-35C69D51022A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{7D80F2DE-EB7C-4986-96FE-56D8BFBF2CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft.Launcher", "Minecraft.Launcher\Minecraft.Launcher.csproj", "{4E0C6638-BAEC-4639-AFE9-A6B5B9E73B69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,12 @@ Global
 		{5FD47103-6703-4F96-8F99-35C69D51022A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FD47103-6703-4F96-8F99-35C69D51022A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FD47103-6703-4F96-8F99-35C69D51022A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0C6638-BAEC-4639-AFE9-A6B5B9E73B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0C6638-BAEC-4639-AFE9-A6B5B9E73B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0C6638-BAEC-4639-AFE9-A6B5B9E73B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0C6638-BAEC-4639-AFE9-A6B5B9E73B69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E0C6638-BAEC-4639-AFE9-A6B5B9E73B69} = {7D80F2DE-EB7C-4986-96FE-56D8BFBF2CAB}
 	EndGlobalSection
 EndGlobal
