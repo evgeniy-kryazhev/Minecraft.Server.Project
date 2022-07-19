@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Minecraft.Application\Minecraft.Application.csproj" />
+      <ProjectReference Include="..\Minecraft.Domain.Shared\Minecraft.Domain.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
