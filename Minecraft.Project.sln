@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft.Web.API", "Minecraft.Web.API\Minecraft.Web.API.csproj", "{A5062912-A2BD-419A-AAC7-8EFC37F0300C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft.Application", "Minecraft.Application\Minecraft.Application.csproj", "{ABC00323-91BE-439C-9856-F56B83577477}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5062912-A2BD-419A-AAC7-8EFC37F0300C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5062912-A2BD-419A-AAC7-8EFC37F0300C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5062912-A2BD-419A-AAC7-8EFC37F0300C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5062912-A2BD-419A-AAC7-8EFC37F0300C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC00323-91BE-439C-9856-F56B83577477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC00323-91BE-439C-9856-F56B83577477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC00323-91BE-439C-9856-F56B83577477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC00323-91BE-439C-9856-F56B83577477}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
