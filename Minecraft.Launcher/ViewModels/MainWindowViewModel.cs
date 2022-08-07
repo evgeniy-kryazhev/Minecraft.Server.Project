@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Reactive;
 using System.Reactive.Disposables;
+using System.Text;
 using System.Threading.Tasks;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
@@ -11,6 +12,7 @@ using CmlLib.Core.Installer.FabricMC;
 using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
 using DynamicData.Binding;
+using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -27,6 +29,10 @@ namespace Minecraft.Launcher.ViewModels
             {
                 IsLoading = true;
                 LoadingTitle = $"Загрузка версии игры {e.ProgressPercentage}";
+            };
+            Launcher.FileChanged += args =>
+            {
+                Log = JsonConvert.SerializeObject(args);
             };
 
             this.WhenActivated( (CompositeDisposable disposables) =>
@@ -61,6 +67,9 @@ namespace Minecraft.Launcher.ViewModels
         [Reactive]
         public bool FilterLocalVersion { get; set; }
         
+        [Reactive]
+        public string? Log { get; set; }
+        
         public ReactiveCommand<Unit, Unit> PlayGameCommand { get; set; }
 
         private async Task PlayGame()
@@ -81,8 +90,15 @@ namespace Minecraft.Launcher.ViewModels
                     MaximumRamMb = 8000,
                     Session = session,
                 };
+                
                 var process = await Launcher.CreateProcessAsync(SelectedVersion, launchOption);
                 process.Start();
+            }
+            catch (Exception exception)
+            {
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
+                    .GetMessageBoxStandardWindow("Error", exception.Message);
+                await messageBoxStandardWindow.Show();
             }
             finally
             {
@@ -100,6 +116,12 @@ namespace Minecraft.Launcher.ViewModels
                 var versions = await GetVersions();
                 Versions = new ReadOnlyObservableCollection<string>(versions.Select(x => x.Name)
                     .ToObservableCollection());
+            }
+            catch (Exception exception)
+            {
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
+                    .GetMessageBoxStandardWindow("Error", exception.Message);
+                await messageBoxStandardWindow.Show();
             }
             finally
             {

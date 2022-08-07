@@ -17,7 +17,18 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Window.Styles />
+    <Window.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#6d28d9" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#a78bfa" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </Window.Styles>
 
     <dialogHost:DialogHost IsOpen="{Binding IsLoading}">
         <dialogHost:DialogHost.DialogContent>
@@ -53,8 +64,11 @@
             <Border>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBox Text="{Binding UserName}" Watermark="User name" />
-                    <Button Command="{Binding PlayGameCommand}" HorizontalAlignment="Stretch">
-                        <StackPanel Orientation="Horizontal">
+                    <Button
+                        Classes="primary"
+                        Command="{Binding PlayGameCommand}"
+                        HorizontalAlignment="Stretch">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <TextBlock Text="Play" TextAlignment="Center" />
                             <TextBlock Text="{Binding SelectedVersion}" TextAlignment="Center" />
                         </StackPanel>
