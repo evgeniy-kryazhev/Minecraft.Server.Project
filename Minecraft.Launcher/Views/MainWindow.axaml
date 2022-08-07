@@ -47,8 +47,8 @@
             </Grid>
             <Border>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox Watermark="User name" />
-                    <Button HorizontalAlignment="Stretch">
+                    <TextBox Text="{Binding UserName}" Watermark="User name" />
+                    <Button Command="{Binding PlayGameCommand}" HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Play" TextAlignment="Center" />
                             <TextBlock Text="{Binding SelectedVersion}" TextAlignment="Center" />
