@@ -1,12 +1,15 @@
-<Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:Minecraft.Launcher"
-             x:Class="Minecraft.Launcher.App">
+<Application
+    x:Class="Minecraft.Launcher.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:local="using:Minecraft.Launcher"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <local:ViewLocator />
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+        <FluentTheme Mode="Light" />
+        <StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml" />
+        <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml" />
     </Application.Styles>
 </Application>

@@ -6,7 +6,9 @@
     mc:Ignorable="d"
     x:Class="Minecraft.Launcher.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
+    xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Minecraft.Launcher.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -15,12 +17,46 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Grid RowDefinitions="Auto, *">
-        <Button
-            Command="{Binding LoadModsCommand}"
-            Content="Load"
-            HorizontalAlignment="Stretch" />
-        <ListBox Grid.Row="1" Items="{Binding ListModifications}" />
-    </Grid>
+    <Window.Styles />
+
+    <dialogHost:DialogHost IsOpen="{Binding IsLoading}">
+        <dialogHost:DialogHost.DialogContent>
+            <Panel Margin="10" MinWidth="300">
+                <StackPanel Orientation="Vertical">
+                    <avaloniaProgressRing:ProgressRing
+                        Foreground="Blue"
+                        Height="40"
+                        IsActive="True"
+                        Width="40" />
+                    <TextBlock
+                        IsVisible="{Binding !LoadingTitle}"
+                        Text="{Binding LoadingTitle}"
+                        TextAlignment="Center" />
+                </StackPanel>
+            </Panel>
+        </dialogHost:DialogHost.DialogContent>
+        <DockPanel IsEnabled="{Binding !IsLoading}">
+            <Grid
+                DockPanel.Dock="Left"
+                MinWidth="200"
+                Name="VersionsGrid">
+                <ListBox
+                    Items="{Binding Versions}"
+                    Name="VersionsList"
+                    SelectedItem="{Binding SelectedVersion}" />
+            </Grid>
+            <Border>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox Watermark="User name" />
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Play" TextAlignment="Center" />
+                            <TextBlock Text="{Binding SelectedVersion}" TextAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </DockPanel>
+    </dialogHost:DialogHost>
 
 </Window>
