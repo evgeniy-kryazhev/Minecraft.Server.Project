@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Reactive;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
 using CmlLib.Core.Installer.FabricMC;
+using CmlLib.Core.Version;
+using CmlLib.Core.VersionLoader;
+using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -27,8 +31,11 @@ namespace Minecraft.Launcher.ViewModels
 
             this.WhenActivated( (CompositeDisposable disposables) =>
             {
-                Task.Run(ActivateView);
+                Task.Run(LoadingVersions);
             });
+
+            this.WhenAnyValue(x => x.FilterLocalVersion)
+                .Subscribe(x => Task.Run(LoadingVersions));
 
             var canExecutePlayGame = this.WhenAnyValue(
                 x => x.UserName, x => x.SelectedVersion,
@@ -36,6 +43,7 @@ namespace Minecraft.Launcher.ViewModels
                     !string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(version));
             
             PlayGameCommand = ReactiveCommand.CreateFromTask(PlayGame, canExecutePlayGame);
+            
         }
 
         public MinecraftPath MinecraftPath { get; }
@@ -50,25 +58,10 @@ namespace Minecraft.Launcher.ViewModels
         [Reactive]
         public string UserName { get; set; }
         
+        [Reactive]
+        public bool FilterLocalVersion { get; set; }
+        
         public ReactiveCommand<Unit, Unit> PlayGameCommand { get; set; }
-
-        private async Task ActivateView()
-        {
-            try
-            {
-                IsLoading = true;
-                LoadingTitle = "Загрузка списка версий";
-                var fabricVersionLoader = new FabricVersionLoader();
-                var versions = await Launcher.GetAllVersionsAsync();
-                Versions = new ReadOnlyObservableCollection<string>(versions.Select(x => x.Name)
-                    .ToObservableCollection());
-            }
-            finally
-            {
-                IsLoading = false;
-                LoadingTitle = null;
-            }
-        }
 
         private async Task PlayGame()
         {
@@ -95,6 +88,36 @@ namespace Minecraft.Launcher.ViewModels
             {
                 IsLoading = false;
                 LoadingTitle = null;
+            }
+        }
+
+        private async Task LoadingVersions()
+        {
+            try
+            {
+                IsLoading = true;
+                LoadingTitle = "Загрузка списка версий";
+                var versions = await GetVersions();
+                Versions = new ReadOnlyObservableCollection<string>(versions.Select(x => x.Name)
+                    .ToObservableCollection());
+            }
+            finally
+            {
+                IsLoading = false;
+                LoadingTitle = null;
+            }
+        }
+        
+        private Task<MVersionCollection> GetVersions()
+        {
+            if (!FilterLocalVersion)
+            {
+                return Launcher.GetAllVersionsAsync();
+            }
+            else
+            {
+                var local = new LocalVersionLoader(MinecraftPath);
+                return local.GetVersionMetadatasAsync();
             }
         }
     }

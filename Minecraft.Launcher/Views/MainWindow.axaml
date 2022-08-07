@@ -39,8 +39,13 @@
             <Grid
                 DockPanel.Dock="Left"
                 MinWidth="200"
-                Name="VersionsGrid">
+                Name="VersionsGrid"
+                RowDefinitions="Auto, *">
+                <Border>
+                    <CheckBox IsChecked="{Binding FilterLocalVersion}">Установленые версии</CheckBox>
+                </Border>
                 <ListBox
+                    Grid.Row="1"
                     Items="{Binding Versions}"
                     Name="VersionsList"
                     SelectedItem="{Binding SelectedVersion}" />
